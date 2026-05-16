@@ -40,7 +40,6 @@ export default function Hero() {
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [visitors, setVisitors] = useState(2);
 
-  // AUTOMATIC TIMEOUT / INTERVAL LOGIC
   useEffect(() => {
     const timer = setInterval(() => {
       if (isAnimating) return;
@@ -114,7 +113,7 @@ export default function Hero() {
           )}
         </AnimatePresence>
 
-        {/* NAVBAR RESPONSIVE */}
+        {/* NAVBAR */}
         <nav className="relative z-[70] flex justify-between items-center px-6 md:px-12 py-6 md:py-8 text-white/90 text-[10px] md:text-[11px] font-medium tracking-wide">
           <div className="flex items-center">
             <img src="https://i1-e.pinimg.com/1200x/14/21/17/1421178fa46a627bff225c9f508bfce7.jpg" alt="Logo" className="h-8 md:h-12 w-auto object-contain" />
@@ -134,35 +133,42 @@ export default function Hero() {
           </div>
         </nav>
 
-        {/* MAIN CONTENT RESPONSIVE */}
-        <div className="relative z-[30] flex-1 flex flex-col justify-between px-6 md:px-16 pb-8 md:pb-12 h-full">
-          <div className="mt-4 md:mt-0">
+        {/* MAIN CONTENT */}
+        <div className="relative z-[30] flex-1 flex flex-col justify-between px-6 md:px-16 pb-6 md:pb-12 h-full">
+          <div className="mt-2 md:mt-0">
             <motion.span className="text-white/80 text-[8px] md:text-[10px] font-bold tracking-[0.4em] md:tracking-[0.5em] mb-1 block">EXPLORE THE HERITAGE</motion.span>
             <AnimatePresence mode="wait">
-              <motion.h1 key={active.id} initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-white text-[42px] sm:text-[60px] md:text-[85px] font-black italic uppercase leading-none break-words">
+              <motion.h1 key={active.id} initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-white text-[38px] sm:text-[60px] md:text-[85px] font-black italic uppercase leading-none break-words">
                 WELCOME TO <span className="text-[#E9C4B1]">Oman</span>
               </motion.h1>
             </AnimatePresence>
           </div>
 
-          {/* Planet Slider & Desc Layout */}
-          <div className="flex flex-col md:flex-row justify-end items-center gap-4 md:gap-8 my-6 md:mb-3 w-full">
-            <div className="relative max-w-full md:max-w-[260px] text-center md:text-right px-4 md:pr-6 md:border-r md:border-b-0 border-b border-white/10 pb-4 md:pb-0">
+          {/* Planet Slider Layout - Ab Mobile par bhi same dynamic curved circles dikhenge */}
+          <div className="flex flex-col md:flex-row justify-end items-center gap-4 md:gap-8 my-4 md:mb-3 w-full">
+            <div className="relative max-w-full md:max-w-[260px] text-center md:text-right px-4 md:pr-6 md:border-r md:border-b-0 border-b border-white/10 pb-3 md:pb-0">
               <p className="text-[11px] md:text-[12px] font-bold uppercase mb-1 md:mb-2 text-[#E9C4B1]">Discover {active.location.split(',')[0]}</p>
-              <p className="text-white/60 text-[10px] md:text-[11px] italic leading-relaxed line-clamp-3 md:line-clamp-none">{active.desc}</p>
+              <p className="text-white/60 text-[10px] md:text-[11px] italic leading-relaxed line-clamp-2 md:line-clamp-none">{active.desc}</p>
             </div>
 
-            {/* PLANETS SLIDER */}
-            <div className="relative w-[180px] h-[180px] md:w-[280px] md:h-[280px] flex items-center justify-center scale-90 md:scale-100">
-                <div className="absolute w-[180px] h-[180px] md:w-[280px] md:h-[280px] border border-white/10 rounded-full" />
-                <div className="absolute w-[130px] h-[130px] md:w-[200px] md:h-[200px] border border-white/15 rounded-full" />
+            {/* EXACT CIRCULAR PLANETS SLIDER (For Desktop & Mobile Both) */}
+            <div className="relative w-[200px] h-[200px] md:w-[280px] md:h-[280px] flex items-center justify-center">
+                {/* Fixed Circular Tracks */}
+                <div className="absolute w-[200px] h-[200px] md:w-[280px] md:h-[280px] border border-white/10 rounded-full" />
+                <div className="absolute w-[140px] h-[140px] md:w-[200px] md:h-[200px] border border-white/15 rounded-full" />
                 <div className="absolute w-[80px] h-[80px] md:w-[120px] md:h-[120px] border border-white/20 rounded-full" />
-                <div className="flex flex-row md:flex-col gap-4 md:gap-6 items-center relative z-[70]">
+                
+                {/* Vertically Stacked Center Orbit Alignment */}
+                <div className="flex flex-col gap-3 md:gap-6 items-center relative z-[70]">
                   {DATA.map((item) => (
                     <motion.div 
                       key={item.id}
                       onClick={() => handlePlanetClick(item)} 
-                      className={`cursor-pointer rounded-full border-2 transition-all duration-300 overflow-hidden ${active.id === item.id ? "border-white w-12 h-12 md:w-16 md:h-16" : "border-white/20 w-8 h-8 md:w-10 md:h-10 opacity-40 grayscale"}`}
+                      className={`cursor-pointer rounded-full border-2 transition-all duration-300 overflow-hidden ${
+                        active.id === item.id 
+                          ? "border-white w-12 h-12 md:w-16 md:h-16 shadow-lg" 
+                          : "border-white/20 w-8 h-8 md:w-10 md:h-10 opacity-50 grayscale"
+                      }`}
                     >
                       <img src={item.thumb} className="w-full h-full object-cover" alt="thumb" />
                     </motion.div>
@@ -171,12 +177,10 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* 100% RESPONSIVE SMART SEARCH BAR */}
-          <div className="w-full bg-white/95 backdrop-blur-md rounded-[24px] md:rounded-[35px] flex flex-col md:flex-row items-stretch md:items-center p-3 gap-3 md:gap-0 shadow-2xl relative z-[80] mt-auto mb-4 md:mb-0">
-            
+          {/* SMART SEARCH BAR */}
+          <div className="w-full bg-white/95 backdrop-blur-md rounded-[24px] md:rounded-[35px] flex flex-col md:flex-row items-stretch md:items-center p-3 gap-3 md:gap-0 shadow-2xl relative z-[80] mt-auto mb-2 md:mb-0">
             <div className="grid grid-cols-2 md:flex md:flex-row flex-1 divide-x divide-gray-100 gap-y-3 gap-x-0">
               
-              {/* Location */}
               <div className="px-4 md:px-6 flex items-center gap-2 min-w-0">
                 <Search size={14} className="text-gray-400 flex-shrink-0" />
                 <div className="w-full text-black min-w-0">
@@ -187,7 +191,6 @@ export default function Hero() {
                 </div>
               </div>
               
-              {/* Check In */}
               <div className="px-4 md:px-6 flex items-center gap-2">
                 <Calendar size={14} className="text-gray-400 flex-shrink-0" />
                 <div className="w-full text-black">
@@ -196,7 +199,6 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Check Out */}
               <div className="px-4 md:px-6 flex items-center gap-2 border-l border-gray-100 md:border-l">
                 <Calendar size={14} className="text-gray-400 flex-shrink-0" />
                 <div className="w-full text-black">
@@ -205,7 +207,6 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Visitors */}
               <div className="px-4 md:px-6 flex items-center justify-between text-black border-l border-gray-100">
                 <div className="flex items-center gap-2 min-w-0">
                   <Users size={14} className="text-gray-400 flex-shrink-0" />
@@ -222,9 +223,8 @@ export default function Hero() {
 
             </div>
 
-            {/* Action Search Button */}
             <button className="bg-black w-full md:w-14 h-11 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center text-white md:ml-2 transition-transform active:scale-95 flex-shrink-0">
-              <Play size={16} fill="white" className="rotate-0 md:rotate-0" />
+              <Play size={16} fill="white" />
               <span className="md:hidden ml-2 text-xs font-bold tracking-wider uppercase">Search Now</span>
             </button>
           </div>
