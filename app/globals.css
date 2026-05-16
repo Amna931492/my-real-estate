@@ -24,3 +24,9 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ERROR FIX: 
+   Agar aapke terminal mein abhi bhi 'Module not found: Can't resolve' aa raha hai, 
+   to check karein ki aapne kisi component mein className="bg-[url('')]" to nahi likha.
+   Usko wahan se delete kar dein.
+*/
